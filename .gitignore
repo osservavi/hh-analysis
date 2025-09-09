@@ -1,0 +1,35 @@
+# Virtual environments
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyi
+
+# IDE
+.vscode/
+.idea/
+.vs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+
+# Data folders
+data/raw/*
+!data/raw/.gitkeep   
+data/processed/
+
+# Environment variables and secrets
+.env
+.secrets
+config.ini
+*.key
+*.pem
