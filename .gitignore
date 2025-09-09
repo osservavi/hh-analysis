@@ -22,11 +22,6 @@ Thumbs.db
 *.sqlite
 *.db
 
-# Data folders
-data/raw/*
-!data/raw/.gitkeep   
-data/processed/
-
 # Environment variables and secrets
 .env
 .secrets
