@@ -19,7 +19,7 @@ def get_vacancy_links(query='Аналитик данных', pages=1):
         response = requests.get(url, headers=headers)
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        vacancy_cards = soup.find_all('a', class_="magritte-link___b4rEM_6-0-5 magritte-link_mode_primary___l6una_6-0-5 magritte-link_style_neutral___iqoW0_6-0-5 magritte-link_enable-visited___Biyib_6-0-5")
+        vacancy_cards = soup.find_all('a', {'data-qa': 'serp-item__title'})
         for card in vacancy_cards:
             link = card['href']
             clean_link = link.split('?')[0]
@@ -39,9 +39,9 @@ def parse_vacancy_page(url):
     soup = BeautifulSoup(response.text, 'html.parser')
 
     skills = list()
-    skills_info = soup.find('ul', class_='vacancy-skill-list--JsTYRZ5o6dsoavK7')
+    skills_info = soup.find('li', {'data_qa': 'skills_element'})
     if skills_info:
-        skills = [skill.text.strip() for skill in skills_info.find_all('li')]
+        skills = [skill.text.strip() for skill in skills_info.find_all('div', class_=lambda x: x and 'label' in x)]
 
     vacancy_data = {
         'skills': skills
@@ -55,6 +55,8 @@ def main():
     '''
     print('Производится сбор ссылок...')
     links = get_vacancy_links()
+
+    os.makedirs('data/raw', exist_ok=True)
 
     vacancies_data = list()
     for i, link in enumerate(links):
