@@ -39,9 +39,9 @@ def parse_vacancy_page(url):
     soup = BeautifulSoup(response.text, 'html.parser')
 
     skills = list()
-    skills_info = soup.find('li', {'data_qa': 'skills_element'})
+    skills_info = soup.select_one('ul[class*="vacancy-skill-list"]')
     if skills_info:
-        skills = [skill.text.strip() for skill in skills_info.find_all('div', class_=lambda x: x and 'label' in x)]
+        skills = [skill.text.strip() for skill in skills_info.find_all('div', class_='magritte-tag__label___YHV-o_4-0-5')]
 
     vacancy_data = {
         'skills': skills
@@ -60,7 +60,7 @@ def main():
 
     vacancies_data = list()
     for i, link in enumerate(links):
-        print(f'Парсинг {i}й вакансии из {len(links)}: {link}')
+        print(f'Парсинг {i+1}й вакансии из {len(links)}: {link}')
         try:
             data = parse_vacancy_page(link)
             vacancies_data.append(data)
