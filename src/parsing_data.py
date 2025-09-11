@@ -23,8 +23,9 @@ def get_vacancy_links(query='Аналитик данных', pages=1):
         for card in vacancy_cards:
             link = card['href']
             clean_link = link.split('?')[0]
-            vacancies_list.append(clean_link)
-        
+
+            if any(ad_domain not in clean_link for ad_domain in ['adsrv.hh.ru', 'click', 'ad']):
+                vacancies_list.append(clean_link) 
         time.sleep(3)
     
     return vacancies_list
