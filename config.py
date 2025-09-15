@@ -13,13 +13,3 @@ SRC_DIR = BASE_DIR / "src"
 
 for directory in [RAW_DATA_DIR, PROCESSED_DATA_DIR, NOTEBOOKS_DIR, REPORTS_DIR]:
     directory.mkdir(parents=True, exist_ok=True)
-
-def get_raw_data_path(filename=None):
-    if filename:
-        return RAW_DATA_DIR / filename
-    return RAW_DATA_DIR
-
-def get_processed_data_path(filename=None):
-    if filename:
-        return PROCESSED_DATA_DIR / filename
-    return PROCESSED_DATA_DIR

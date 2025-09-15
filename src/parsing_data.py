@@ -4,7 +4,7 @@ import time
 import pandas as pd
 from datetime import datetime
 import os
-from config import get_raw_data_path
+from config import RAW_DATA_DIR
 
 def get_vacancy_links(query='Аналитик данных', pages=1):
     '''
@@ -75,8 +75,8 @@ def main():
 
     current_date = datetime.now().strftime("%Y-%m-%d")
     raw_data_filename = f'vacancies_info_{current_date}.csv'
-    
-    raw_data_path = get_raw_data_path(vacancies_data)
+    raw_data_path = RAW_DATA_DIR / raw_data_filename
+
     df.to_csv(raw_data_path, index=False, encoding='utf-8-sig')
     print(f"Данные сохранены в: {raw_data_path}")
 
