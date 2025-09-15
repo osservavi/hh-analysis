@@ -4,6 +4,7 @@ import time
 import pandas as pd
 from datetime import datetime
 import os
+from config import get_raw_data_path
 
 def get_vacancy_links(query='Аналитик данных', pages=1):
     '''
@@ -50,13 +51,6 @@ def parse_vacancy_page(url):
 
     return vacancy_data
 
-def get_raw_data_file_path(vacancies_data):
-    current_date = datetime.now().strftime("%Y-%m-%d")
-    raw_data_filename = f'vacancies_info_{current_date}.csv'
-    raw_data_path = os.path.join('data', 'raw', raw_data_filename)
-
-    return raw_data_path
-
 def main():
     '''
     Производит сбор данных и сохраняет их в формате .CSV
@@ -78,7 +72,11 @@ def main():
         time.sleep(2)
     
     df = pd.DataFrame(vacancies_data)
-    raw_data_path = get_raw_data_file_path(vacancies_data)
+
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    raw_data_filename = f'vacancies_info_{current_date}.csv'
+    
+    raw_data_path = get_raw_data_path(vacancies_data)
     df.to_csv(raw_data_path, index=False, encoding='utf-8-sig')
     print(f"Данные сохранены в: {raw_data_path}")
 
