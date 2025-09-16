@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import time
 import pandas as pd
 from datetime import datetime
-import os
 from config import RAW_DATA_DIR
 
 def get_vacancy_links(query='Аналитик данных', pages=1):
@@ -58,8 +57,6 @@ def main():
     print('Производится сбор ссылок...')
     links = get_vacancy_links()
 
-    os.makedirs('data/raw', exist_ok=True)
-
     vacancies_data = list()
     for i, link in enumerate(links):
         print(f'Парсинг {i+1}й вакансии из {len(links)}: {link}')
@@ -74,6 +71,7 @@ def main():
     df = pd.DataFrame(vacancies_data)
 
     current_date = datetime.now().strftime("%Y-%m-%d")
+    df['collecting_date'] = current_date
     raw_data_filename = f'vacancies_info_{current_date}.csv'
     raw_data_path = RAW_DATA_DIR / raw_data_filename
 
