@@ -21,7 +21,7 @@ def upload_data():
     bulid_df = pd.concat(df_list, ignore_index=True)
 
     output_file = PROCESSED_DATA_DIR / 'processed_data.csv' # TO DO: check if right
-    bulid_df.to_csv(output_file, index=False, encoding='utf-8')
+    bulid_df.to_csv(output_file, index=False, encoding=' Windows-1251')
     
 
 def main():
